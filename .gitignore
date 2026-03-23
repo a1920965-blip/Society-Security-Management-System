@@ -1,6 +1,0 @@
-.env
-__pycache__
-afenv
-.gitignore
-.git
-.pytest_cache
