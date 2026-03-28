@@ -203,4 +203,5 @@ pytest -v
 
 ## Authors
 
-Made by [Your Name] as part of college minor project.
+Made by Shri Akash
+
