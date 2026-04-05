@@ -17,8 +17,8 @@ class Auth(Base):
     email=Column(String,nullable=True,unique=True)
     role=Column(String,nullable=False,server_default="USER")
     name=Column(String,nullable=True)
-    provider=Column(String,server_default="None")
-    provider_id=Column(String,server_default="None")
+    provider=Column(String,)
+    provider_id=Column(String)
     resident=relationship("Resident",cascade="all,delete")
     vehicle=relationship("Vehicle",cascade="all,delete")
     personal=relationship("Personal",cascade="all,delete")
@@ -56,7 +56,6 @@ class Complaint(Base):
     subject=Column(String)
     status=Column(String,default="Pending")
     remark=Column(String,default="None")
-
 class Epass(Base):
     __tablename__="epass"
     ticket_id=Column(Integer,Identity(start=101, increment=1),primary_key=True,index=True,nullable=False)

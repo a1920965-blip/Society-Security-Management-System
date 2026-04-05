@@ -21,7 +21,7 @@ async def complaint_post(user_data:schemas.Complaint_post,db:SessionDp,user = De
             obj.attachment=user_data.attachment
         db.add(obj)
         await db.commit()
-        db.refresh(obj)
+        await db.refresh(obj)
         logger.info(f"Complaint submitted successfully for user {user}: ticket_id {obj.ticket_id}")
         return {"success": True, "message": "Complaint submitted successfully!","ticket_id": obj.ticket_id}
     except Exception as e:

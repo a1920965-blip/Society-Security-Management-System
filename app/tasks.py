@@ -17,7 +17,7 @@ async def send_mail(email:str,db:SessionDp):
         else:
             e.otp=otp
             e.expire_at=int(time.time()+600)
-        await db.commit
+        await db.commit()
     except Exception as error:
         await db.rollback()
         raise HTTPException(status_code=500,detail="Database error occur")

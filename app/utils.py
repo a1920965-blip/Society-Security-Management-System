@@ -52,7 +52,7 @@ def rate_limit_login_attempts(request, critical_attempts=5,max_attempts=10, thre
     if window_time <= timedelta(seconds=threshold_window_time):
         if ratings[ip]["attempts"] >= max_attempts:
             blocked[ip]=now+timedelta(minutes=2)
-            raise  JSONResponse(status_code=429, content="Too many attempts ,You are Temporaily Blocked")
+            raise HTTPException(status_code=429, content="Too many attempts ,You are Temporaily Blocked")
         elif ratings[ip]["attempts"] >= critical_attempts:
             ratings[ip]["attempts"] += 1
             raise HTTPException(status_code=429, detail="Too many attempts , Try After SomeTime")
@@ -60,11 +60,10 @@ def rate_limit_login_attempts(request, critical_attempts=5,max_attempts=10, thre
     else:
         # reset window
         ratings[ip] = {"time": now, "attempts": 1}
-def generate_otp():
-    return "".join(secrets.choice("0123456789") for _ in range(6))
 
 def generate_otp():
     return int("".join(secrets.choice("0123456789") for _ in range(6)))
+
 def generate_user_id():
     s="qwertyuioplkjhgfdsazxcvbnm1234567890"
     return "".join(secrets.choice(s) for _ in range(8))

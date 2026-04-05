@@ -122,9 +122,9 @@ async def update_resident(user_data:schemas.Resident,db:SessionDp,user_id=Depend
         else:
             user.house_no=user_data.house_no
             user.block=user_data.block
-            user.city=user.data.city
-            user.state=user.data.state
-            user.pincode=user.data.pincode
+            user.city=user_data.city
+            user.state=user_data.state
+            user.pincode=user_data.pincode
         await db.commit()
         logger.info(f"Resident details updated for user {user_id}")
         return {"success":True,"message":"Details Updates succesfully"}
