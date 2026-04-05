@@ -26,6 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.middleware("http")
 async def block_middleware(request:Request,call_next):
     now=datetime.now()
@@ -38,6 +39,8 @@ async def block_middleware(request:Request,call_next):
             blocked.pop(ip)
     response=await call_next(request)
     return response
+
+
 user_exception_handler(app)
 jwt_exception_handler(app)
 postgres_exception_handler(app)
@@ -49,10 +52,3 @@ app.include_router(qr_verify.router)
 app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(admin.router)
-
-@app.get("/csrf-token")
-async def get_csrf():
-    token = utils.generate_csrf_token()
-    response = JSONResponse({"csrf_token": token})
-    response.set_cookie(key="csrf_token", value=token, httponly=True)
-    return response
